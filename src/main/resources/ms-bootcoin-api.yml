@@ -1,0 +1,388 @@
+openapi: 3.0.3
+info:
+  title: Bootcoin Service
+  description: API to manage Bootcoin
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/v1/purse-bootcoin:
+    get:
+      summary: Get all Bootcoin
+      operationId: getAllBootcoinBootcoins
+      responses:
+        '200':
+          description: List of Bootcoins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurseBootcoinResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create a new urseBootcoin
+      operationId: createurseBootcoin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurseBootcoinRequest'
+      responses:
+        '201':
+          description:  urseBootcoin success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurseBootcoinResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/purse-bootcoin/{id}:
+    get:
+      summary: Get a PurseBootcoin by ID
+      operationId: getPurseBootcoinById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of PurseBootcoin
+          schema:
+            type: string
+      responses:
+        '200':
+          description: PurseBootcoinound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurseBootcoinResponse'
+        '404':
+          description: PurseBootcoin not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update a PurseBootcoin by ID
+      operationId: PurseBootcoin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of PurseBootcoin
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurseBootcoinRequest'
+      responses:
+        '200':
+          description: PurseBootcoin updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurseBootcoinResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Purse not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a PurseBootcoin ID
+      operationId: deletePurseBootcoin
+      parameters:
+        - name: id
+          in: path
+          description: Id of PurseBootcoinPurseBootcoin
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: PurseBootcoin deleted
+        '404':
+          description: CPurseBootcoin not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/purse-bootcoin/buy:
+    post:
+      summary: PurseBootcoin Payment
+      operationId: postTransactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: payment PurseBootcoin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '404':
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/purse-bootcoin/exchange-rate:
+    get:
+      summary: bootcoin exchange-rate
+      operationId: getExchange
+      responses:
+        '200':
+          description: payment purse
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRate'
+        '404':
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/purse-bootcoin/evaluate-decision:
+    post:
+      summary: bootcoin Payment
+      operationId: getPaymentRequest
+      parameters:
+        - name: decision
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: idPayment
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: payment purse
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '404':
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PurseBootcoin:
+      type: object
+      properties:
+        _id:
+          type: string
+        TypeDocument:
+          type: string
+        numberDocument:
+          type: number
+        numberPhone:
+          type: string
+        numberAccount:
+          type: string
+        imeiPhone:
+          type: number
+        email:
+          type: string
+        balance:
+          type: number
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    PurseBootcoinRequest:
+      type: object
+      properties:
+        TypeDocument:
+          type: string
+        numberDocument:
+          type: number
+        numberPhone:
+          type: string
+        numberAccount:
+          type: string
+        imeiPhone:
+          type: number
+        email:
+          type: string
+        balance:
+          type: number
+    Transaction:
+      type: object
+      properties:
+        idTransaction:
+          type: string
+        amount:
+          type: number
+        state:
+          type: string
+        date:
+          type: string
+          format: date
+    PurseBootcoinResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+        TypeDocument:
+          type: string
+        numberDocument:
+          type: number
+        numberPhone:
+          type: string
+        numberAccount:
+          type: string
+        imeiPhone:
+          type: number
+        email:
+          type: string
+        balance:
+          type: number
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Payment:
+      type: object
+      properties:
+        _id:
+          type: string
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum: [YANKI, TRANSFER]
+        state:
+          type: string
+        date:
+          type: string
+          format: date
+        numberPhone:
+          type: string
+        numberAccount:
+          type: string
+        idPurseBuy:
+          type: string
+        idPurseSeller:
+          type: string
+    PaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+        state:
+          type: string
+        date:
+          type: string
+          format: date
+      required:
+        - amount
+    PaymentResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum: [YANKI, TRANSFER]
+        state:
+          type: string
+        date:
+          type: string
+          format: date
+        numberPhone:
+          type: string
+        numberAccount:
+          type: string
+        idPurseBuy:
+          type: string
+        idPurseSeller:
+          type: string
+    ExchangeRate:
+      type: object
+      properties:
+        exchangeRateBuy:
+          type: number
+        exchangeRateSell:
+          type: number
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
